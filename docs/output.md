@@ -16,7 +16,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [BAMTOOLS CONVERT](#bamtools-convert) - Convert bam file into fasta file
 - [TAMA POLYA CLEAN UP](#tama-polya-clean-up) - Detect and trim polyA tails reads
 - [GUNZIP](#gunzip) - Decompress FLNC fastas (uLTRA path only)
-- [ULTRA or MINIMAP2](#ultra-minimap2) - Map FLNCs on genome
+- [ULTRA or MINIMAP2](#ultra-or-minimap2) - Map FLNCs on genome
 - [BIOPERL](#bioperl) - Remove spurious alignments (uLTRA path only, [Issue #11](https://github.com/ksahlin/ultra/issues/11))
 - [TAMA FILE LIST](#tama-file-list) - Prepare list file for TAMA collapse
 - [TAMA COLLAPSE](#tama-collapse) - Clean gene models
@@ -180,6 +180,7 @@ TAMA FILELIST is a home script for generating input file list for TAMA merge.
   - `<sample>_gene_report.txt`: This contains a report of the genes from the merged file.
   - `<sample>_merge.txt`: This contains a bed12 format file which shows the coordinates of each input transcript matched to the merged transcript ID.
   - `<sample>_trans_report.txt`: This contains the source information for each merged transcript.
+  - `<sample>.agat.gff`: `<sample>.bed` converted to Gff format.
 
 </details>
 

@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.1.0 - [15/01/2025]
+## v2.1.0 - [16/01/2025]
 
 ### `Added`
 
@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated nf-core template to version 3.1.1
 - Added parameter `skip_lima` to allow processing of samples for which `LIMA` has already been applied
 - Added parameter `tama_merge_all` to allow merging of sample-wise beds into a single annotation bed
+- Added parameter `save_gff` to allow saving the annotation files in Gff format in addition to the bed12 format
 
 ### `Fixed`
 

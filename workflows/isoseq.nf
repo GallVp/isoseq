@@ -34,10 +34,11 @@ ch_multiqc_custom_methods_description = params.multiqc_methods_description ? fil
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
-include { SET_CHUNK_NUM_CHANNEL }                    from '../subworkflows/local/set_chunk_num_channel'
-include { SET_VALUE_CHANNEL as SET_FASTA_CHANNEL }   from '../subworkflows/local/set_value_channel'
-include { SET_VALUE_CHANNEL as SET_GTF_CHANNEL }     from '../subworkflows/local/set_value_channel'
-include { SET_VALUE_CHANNEL as SET_PRIMERS_CHANNEL } from '../subworkflows/local/set_value_channel'
+include { SET_CHUNK_NUM_CHANNEL }                       from '../subworkflows/local/set_chunk_num_channel'
+include { SET_VALUE_CHANNEL as SET_FASTA_CHANNEL }      from '../subworkflows/local/set_value_channel'
+include { SET_VALUE_CHANNEL as SET_GTF_CHANNEL }        from '../subworkflows/local/set_value_channel'
+include { SET_VALUE_CHANNEL as SET_PRIMERS_CHANNEL }    from '../subworkflows/local/set_value_channel'
+include { BED12_AGAT_GFF }                              from '../subworkflows/local/bed12_agat_gff.nf'
 
 //
 // MODULE: Local to the pipeline
@@ -197,6 +198,12 @@ workflow ISOSEQ {
         ch_tmerge_all_in.map { _meta, _beds, list -> list }
     )
 
+    // Save Gff files
+    ( params.save_gff ? GSTAMA_MERGE.out.bed.mix(GSTAMA_MERGE_ALL.out.bed) : Channel.empty() )
+        .set { ch_bed12_to_gff_input }
+
+    BED12_AGAT_GFF ( ch_bed12_to_gff_input )
+
     //
     // MODULE: Pipeline reporting
     //
@@ -221,6 +228,7 @@ workflow ISOSEQ {
     ch_versions = ch_versions.mix(GSTAMA_COLLAPSE.out.versions)
     ch_versions = ch_versions.mix(GSTAMA_MERGE.out.versions)
     ch_versions = ch_versions.mix(GSTAMA_MERGE_ALL.out.versions)
+    ch_versions = ch_versions.mix(BED12_AGAT_GFF.out.versions)
 
     //
     // MODULE: CUSTOM_DUMPSOFTWAREVERSIONS

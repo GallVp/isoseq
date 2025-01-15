@@ -49,6 +49,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 8. Map consensuses on the reference genome ([`MINIMAP2`](https://github.com/lh3/minimap2) or [`uLTRA`](https://github.com/ksahlin/ultra))
 9. Clean gene models ([`TAMA collapse`](https://github.com/GenomeRIK/tama))
 10. Merge annotations by sample ([`TAMA merge`](https://github.com/GenomeRIK/tama))
+11. Save annotations in GFF format (Optional, [`AGAT`](https://github.com/NBISweden/AGAT))
 
 ## Usage
 

@@ -56,6 +56,11 @@
                     "help_text": "If selected entrypoint is 'isoseq' (default): \nCCS workload can be split into to chunks for a faster running time. \nThis value must be a positive integer greater than 1. \n```bash\n--chunk 1/10 \n```\n\nif selected entrypoint is 'map': the reads files will be split into files of 'chunk' sequences.",
                     "fa_icon": "fas fa-cog"
                 },
+                "save_gff": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-question-circle",
+                    "description": "Also save BED12 files from TAMA merge in Gff format?"
+                },
                 "email": {
                     "type": "string",
                     "description": "Email address for completion summary.",
