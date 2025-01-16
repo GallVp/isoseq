@@ -1,5 +1,6 @@
-include { AGAT_CONVERTBED2GFF } from '../../modules/nf-core/agat/convertbed2gff/main'
-include { AGAT_CONVERTSPGXF2GXF } from '../../modules/nf-core/agat/convertspgxf2gxf/main'
+include { AGAT_CONVERTBED2GFF }     from '../../modules/nf-core/agat/convertbed2gff/main'
+include { AGAT_CONVERTSPGXF2GXF }   from '../../modules/nf-core/agat/convertspgxf2gxf/main'
+include { GT_GFF3 }                 from '../../modules/nf-core/gt/gff3/main'
 
 workflow BED12_AGAT_GFF {
     take:
@@ -52,8 +53,13 @@ workflow BED12_AGAT_GFF {
     AGAT_CONVERTSPGXF2GXF ( ch_merged_gff )
     ch_versions             = ch_versions.mix(AGAT_CONVERTSPGXF2GXF.out.versions.first())
 
+    // MODULE: GT_GFF3
+    GT_GFF3 ( AGAT_CONVERTSPGXF2GXF.out.output_gff )
+
+    ch_versions             = ch_versions.mix(GT_GFF3.out.versions.first())
+
     emit:
 
-    versions                = ch_versions                           // channel: [ versions.yml ]
-    gff                     = AGAT_CONVERTSPGXF2GXF.out.output_gff  // channel: [ meta, .gff ]
+    versions                = ch_versions           // channel: [ versions.yml ]
+    gff                     = GT_GFF3.out.gt_gff3   // channel: [ meta, .gff ]
 }

@@ -180,7 +180,7 @@ TAMA FILELIST is a home script for generating input file list for TAMA merge.
   - `<sample>_gene_report.txt`: This contains a report of the genes from the merged file.
   - `<sample>_merge.txt`: This contains a bed12 format file which shows the coordinates of each input transcript matched to the merged transcript ID.
   - `<sample>_trans_report.txt`: This contains the source information for each merged transcript.
-  - `<sample>.agat.gff`: `<sample>.bed` converted to Gff format.
+  - `<sample>.gt.gff3`: `<sample>.bed` converted to Gff format.
 
 </details>
 
