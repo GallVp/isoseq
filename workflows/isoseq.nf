@@ -70,6 +70,8 @@ include { GSTAMA_MERGE }                        from '../modules/nf-core/gstama/
 include { GSTAMA_MERGE as GSTAMA_MERGE_ALL }    from '../modules/nf-core/gstama/merge/main'
 include { CUSTOM_DUMPSOFTWAREVERSIONS }         from '../modules/nf-core/custom/dumpsoftwareversions/main'
 
+include { GFF_FASTA_GFFREAD_EGGNOGMAPPER_AGAT_GT } from '../subworkflows/gallvp/gff_fasta_gffread_eggnogmapper_agat_gt/main'
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -204,6 +206,20 @@ workflow ISOSEQ {
 
     BED12_AGAT_GFF ( ch_bed12_to_gff_input )
 
+    ch_eggnogmapper_inputs = params.skip_eggnogmapper
+        ? Channel.empty()
+        : BED12_AGAT_GFF.out.gff
+        .combine(SET_FASTA_CHANNEL.out.data)
+        .map { meta, gff, fasta -> [ meta, gff, fasta ] }
+
+    GFF_FASTA_GFFREAD_EGGNOGMAPPER_AGAT_GT (
+        ch_eggnogmapper_inputs.map { meta, gff, _fasta -> [ meta, gff ] },
+        ch_eggnogmapper_inputs.map { meta, _gff, fasta -> [ meta, fasta ] },
+        params.eggnogmapper_db_dir,
+        false,                      // val_purge_nohits
+        true                        // val_describe_gff
+    )
+
     //
     // MODULE: Pipeline reporting
     //
@@ -229,6 +245,7 @@ workflow ISOSEQ {
     ch_versions = ch_versions.mix(GSTAMA_MERGE.out.versions)
     ch_versions = ch_versions.mix(GSTAMA_MERGE_ALL.out.versions)
     ch_versions = ch_versions.mix(BED12_AGAT_GFF.out.versions)
+    ch_versions = ch_versions.mix(GFF_FASTA_GFFREAD_EGGNOGMAPPER_AGAT_GT.out.versions)
 
     //
     // MODULE: CUSTOM_DUMPSOFTWAREVERSIONS

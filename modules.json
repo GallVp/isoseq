@@ -2,6 +2,41 @@
     "name": "nf-core/isoseq",
     "homePage": "https://github.com/nf-core/isoseq",
     "repos": {
+        "https://github.com/GallVp/nxf-components.git": {
+            "modules": {
+                "gallvp": {
+                    "agat/spfilterfeaturefromkilllist": {
+                        "branch": "main",
+                        "git_sha": "342f455856190ca445987c28085609a8dfdaa382",
+                        "installed_by": ["gff_fasta_gffread_eggnogmapper_agat_gt"]
+                    },
+                    "eggnogmapper": {
+                        "branch": "main",
+                        "git_sha": "5767f6a1c89445c2594dd6ead5806f3ca1ab7d32",
+                        "installed_by": ["gff_fasta_gffread_eggnogmapper_agat_gt"]
+                    },
+                    "gffread": {
+                        "branch": "main",
+                        "git_sha": "a769708f41968e3c1eb6b32d838daadba410635a",
+                        "installed_by": ["gff_fasta_gffread_eggnogmapper_agat_gt"]
+                    },
+                    "gt/gff3": {
+                        "branch": "main",
+                        "git_sha": "5406460c6294584316a3b5cd2212b9ba25690a1a",
+                        "installed_by": ["gff_fasta_gffread_eggnogmapper_agat_gt"]
+                    }
+                }
+            },
+            "subworkflows": {
+                "gallvp": {
+                    "gff_fasta_gffread_eggnogmapper_agat_gt": {
+                        "branch": "main",
+                        "git_sha": "342f455856190ca445987c28085609a8dfdaa382",
+                        "installed_by": ["subworkflows"]
+                    }
+                }
+            }
+        },
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
